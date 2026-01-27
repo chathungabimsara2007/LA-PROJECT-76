@@ -48,6 +48,10 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
+    ItemDAO itemDAO = new ItemDAOImpl();
+    CustomerDAO customerDAO = new CustomerDAOImpl();
+    OrderDAO orderDAO = new OrderDAOImpl();
+
     public void initialize() throws SQLException, ClassNotFoundException {
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -182,18 +186,15 @@ public class PlaceOrderFormController {
     }
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        ItemDAO itemDAO = new ItemDAOImpl();
         return itemDAO.existItem(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        CustomerDAO customerDAO = new CustomerDAOImpl();
         return customerDAO.exitCustomers(id);
     }
 
     public String generateNewOrderId() {
         try {
-            OrderDAO orderDAO = new OrderDAOImpl();
             String id = orderDAO.generateNewOrderId();
             return id;
         } catch (SQLException e) {
@@ -206,7 +207,6 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            CustomerDAO customerDAO = new CustomerDAOImpl();
             ArrayList<CustomerDTO> customers=customerDAO.getAllCustomers();
 
             for (CustomerDTO customer : customers) {
@@ -223,8 +223,6 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-
-            ItemDAO itemDAO = new ItemDAOImpl();
             ArrayList<ItemDTO> items=itemDAO.getAllItems();
             for ( ItemDTO item:items ) {
                 cmbItemCode.getItems().add(item.getCode());
@@ -326,7 +324,6 @@ public class PlaceOrderFormController {
         Connection connection = null;
         try {
             connection = DBConnection.getDbConnection().getConnection();
-            OrderDAO orderDAO = new OrderDAOImpl();
             boolean b1 = orderDAO.existsOrder(orderId);
             /*if order id already exist*/
             if (b1) {
@@ -353,7 +350,6 @@ public class PlaceOrderFormController {
                 ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
-                ItemDAO itemDAO = new ItemDAOImpl();
                 boolean b4 = itemDAO.updateItem(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand());
 
                 if (!b4) {
@@ -378,7 +374,6 @@ public class PlaceOrderFormController {
 
     public ItemDTO findItem(String code) {
         try {
-            ItemDAO itemDAO = new ItemDAOImpl();
             return itemDAO.findItem(code);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find the Item " + code, e);
