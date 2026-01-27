@@ -352,18 +352,4 @@ public class PlaceOrderFormController {
         }
         return false;
     }
-
-//    public ItemDTO findItem(String code) {
-//        try {
-//
-//            OrderDetailsDAOImpl placeOrderDAO = new OrderDetailsDAOImpl();
-//            return placeOrderDAO.findItem(code);
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Failed to find the Item " + code, e);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 }
