@@ -20,8 +20,6 @@ public class CustomerDAOImpl {
             customers.add(customerDTO);
         }
         return customers;
-
-
     }
 
     public void saveCustomers(String id, String name, String address) throws SQLException, ClassNotFoundException {
