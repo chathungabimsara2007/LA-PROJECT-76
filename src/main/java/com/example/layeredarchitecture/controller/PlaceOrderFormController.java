@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.PlaceOrderDAOImpl;
+import com.example.layeredarchitecture.dao.OrderDetailsDAOImpl;
+import com.example.layeredarchitecture.dao.OrderDAOImpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -97,7 +98,7 @@ public class PlaceOrderFormController {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
-                        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+                        OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
                         CustomerDTO customerDTO = placeOrderDAO.getAllCustomer(newValue);
 
 //                        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
@@ -132,7 +133,7 @@ public class PlaceOrderFormController {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
 
-                    PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+                    OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
                     ItemDTO item = placeOrderDAO.getAllItems(newItemCode);
 
 
@@ -180,7 +181,7 @@ public class PlaceOrderFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
 
-        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+        OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
         return placeOrderDAO.existItems(code);
 
 //        Connection connection = DBConnection.getDbConnection().getConnection();
@@ -195,14 +196,14 @@ public class PlaceOrderFormController {
 //        pstm.setString(1, id);
 //        return pstm.executeQuery().next();
 
-        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+        OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
         return placeOrderDAO.existCustomers(id);
     }
 
     public String generateNewOrderId() {
         try {
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+            OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
             return placeOrderDAO.generateNewOrderId();
 
 //            Connection connection = DBConnection.getDbConnection().getConnection();
@@ -222,7 +223,7 @@ public class PlaceOrderFormController {
         try {
             /*Get all customer*/
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+            OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
             placeOrderDAO.loadCustomerId(cmbCustomerId);
 
         } catch (SQLException e) {
@@ -237,7 +238,7 @@ public class PlaceOrderFormController {
 
             /*Get all items*/
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+            OrderDAOImpl placeOrderDAO = new OrderDAOImpl();
             placeOrderDAO.loadItemId(cmbItemCode);
 
         } catch (SQLException e) {
@@ -336,8 +337,8 @@ public class PlaceOrderFormController {
         /*Transaction*/
         try {
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            return placeOrderDAO.saveOrder(orderId,orderDate,customerId,orderDetails);
+            OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+            return orderDetailsDAO.saveOrder(orderId,orderDate,customerId,orderDetails);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -350,7 +351,7 @@ public class PlaceOrderFormController {
     public ItemDTO findItem(String code) {
         try {
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+            OrderDetailsDAOImpl placeOrderDAO = new OrderDetailsDAOImpl();
             return placeOrderDAO.findItem(code);
 
         } catch (SQLException e) {
