@@ -9,6 +9,4 @@ public interface OrderDAO {
     public boolean existsOrder(String orderId) throws SQLException, ClassNotFoundException;
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException;
-
-
 }

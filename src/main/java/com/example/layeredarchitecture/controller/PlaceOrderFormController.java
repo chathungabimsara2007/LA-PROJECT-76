@@ -354,7 +354,7 @@ public class PlaceOrderFormController {
                 ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
-                boolean b4 = itemDAO.updateItem(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand());
+                boolean b4 = itemDAO.updateItem(item.getDescription(), item.getUnitPrice(), item.getQtyOnHand(), item.getCode());
 
                 if (!b4) {
                     connection.rollback();
@@ -378,7 +378,7 @@ public class PlaceOrderFormController {
 
     public ItemDTO findItem(String code) {
         try {
-            return itemDAO.findItem(code);
+            return itemDAO.searchItem(code);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find the Item " + code, e);
         } catch (ClassNotFoundException e) {
