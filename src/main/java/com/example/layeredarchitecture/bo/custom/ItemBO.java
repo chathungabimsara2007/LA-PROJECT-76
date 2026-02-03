@@ -1,7 +1,6 @@
 package com.example.layeredarchitecture.bo.custom;
 
 import com.example.layeredarchitecture.model.ItemDTO;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
