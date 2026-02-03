@@ -200,7 +200,7 @@ public class ManageItemsFormController {
                 /*Update Item*/
 
 
-                itemDAO.updateItem(new ItemDTO(description,unitPrice,qtyOnHand,code));
+                itemDAO.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 //
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
