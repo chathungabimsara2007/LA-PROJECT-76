@@ -18,3 +18,4 @@ public interface CrudDAO<T> {
 
     public T search(String id) throws SQLException, ClassNotFoundException;
 }
+
