@@ -27,8 +27,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean updateCustomers(String id, String name, String address) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE Customer SET name=?,address=? WHERE id=?",  name, address, id);
+    public boolean updateCustomers(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("UPDATE Customer SET name=?,address=? WHERE id=?",  customerDTO.getName(), customerDTO.getAddress(), customerDTO.getId());
     }
 
     @Override

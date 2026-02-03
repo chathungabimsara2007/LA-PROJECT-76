@@ -8,6 +8,7 @@ import com.example.layeredarchitecture.dao.custom.OrderDetailsDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 import com.example.layeredarchitecture.view.tdm.OrderDetailTM;
 import com.jfoenix.controls.JFXButton;
@@ -334,7 +335,7 @@ public class PlaceOrderFormController {
                 return false;
             }
             connection.setAutoCommit(false);
-            boolean b2 = orderDAO.saveOrder(orderId,orderDate,customerId);
+            boolean b2 = orderDAO.saveOrder(new OrderDTO(orderId,orderDate,customerId));
             if (!b2) {
                 connection.rollback();
                 connection.setAutoCommit(true);
@@ -354,7 +355,7 @@ public class PlaceOrderFormController {
                 ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
-                boolean b4 = itemDAO.updateItem(item.getDescription(), item.getUnitPrice(), item.getQtyOnHand(), item.getCode());
+                boolean b4 = itemDAO.updateItem(new ItemDTO(item.getDescription(), item.getUnitPrice(), item.getQtyOnHand(), item.getCode()));
 
                 if (!b4) {
                     connection.rollback();
