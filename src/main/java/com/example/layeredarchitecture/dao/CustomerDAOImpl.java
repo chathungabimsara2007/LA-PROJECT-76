@@ -22,13 +22,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void saveCustomers(String id, String name, String address) throws SQLException, ClassNotFoundException {
-        CrudUtil.execute("INSERT INTO Customer (id,name, address) VALUES (?,?,?)", id, name, address);
+    public boolean saveCustomers(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("INSERT INTO Customer (id,name, address) VALUES (?,?,?)", customerDTO.getId(), customerDTO.getName(), customerDTO.getAddress());
     }
 
     @Override
-    public void updateCustomers(String id, String name, String address) throws SQLException, ClassNotFoundException {
-        CrudUtil.execute("UPDATE Customer SET name=?,address=? WHERE id=?",  name, address, id);
+    public boolean updateCustomers(String id, String name, String address) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("UPDATE Customer SET name=?,address=? WHERE id=?",  name, address, id);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void deleteCustomers(String id) throws SQLException, ClassNotFoundException {
-        CrudUtil.execute("DELETE FROM Customer WHERE id=?", id);
+    public boolean deleteCustomers(String id) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("DELETE FROM Customer WHERE id=?", id);
     }
 
     @Override
